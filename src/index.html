@@ -42,7 +42,6 @@
                 type="number"
                 id="quantityInput"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="John"
                 required
               />
             </div>
@@ -66,7 +65,7 @@
             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
           >
             <thead
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400 "
             >
               <tr>
                 <th scope="col" class="px-6 py-3 text-left">#</th>
@@ -77,7 +76,14 @@
               </tr>
             </thead>
             <tbody id="recordGroup">
-
+              <tr
+                class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 hidden last:table-row border-b dark:border-gray-700"
+              > 
+                <td colspan="5" class="text-center p-5">
+                  <!-- step4 -->
+                  There is no record.Buy Something
+                </td>
+              </tr>
             </tbody>
             <tfoot>
               <tr class="">
@@ -108,7 +114,6 @@
     <script src="./js/app.js"></script>
   </body>
 </html>
-
 
 <!-- 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

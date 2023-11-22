@@ -78,9 +78,9 @@ const recordUI = (productName, price, quantity) => {
   const cost = price * quantity;
   const tr = document.createElement("tr");
   tr.className =
-    "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700";
+    "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 ";
   tr.innerHTML = `
-    <td class="px-6 py-4 text-left">1</td>
+    <td class="px-6 py-4 text-left td-counter" ></td>
     <th
       scope="row"
       class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -112,6 +112,7 @@ const recordFormHandler = (event) => {
   // console.log(currentProduct.name);
   // console.log(quantityInput.valueAsNumber);
   recordGroup.append(recordUI(currentProduct.name,currentProduct.price,quantityInput.valueAsNumber))
+  recordForm.reset();
 };
 
 //Listener
