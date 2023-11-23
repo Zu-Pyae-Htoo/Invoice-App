@@ -4,6 +4,7 @@ const recordForm = app.querySelector("#addRecordForm");
 const productSelect = document.querySelector("#productSelect");
 const quantityInput = document.querySelector("#quantityInput");
 const recordGroup = document.querySelector("#recordGroup");
+const recordTotal = document.querySelectorAll("#recordTotal");
 
 //Data
 
@@ -91,10 +92,17 @@ const recordUI = (productName, price, quantity) => {
     <td class="px-6 py-4 text-end">${price}</td>
     <td class="px-6 py-4 text-end">${quantity}</td>
 
-    <td class="px-6 py-4 text-end">${cost}</td>
+    <td class="px-6 py-4 text-end" id="recordTotal">${cost}</td>
     `;
     return tr;
 };
+
+//5
+
+const calRecordTotal = () => {
+  const total = 0;
+  
+}
 
 //Inintial Render
 
