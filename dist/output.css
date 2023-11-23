@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Padauk:wght@400;700&family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Padauk:wght@400;700&family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;700&display=swap");
 
 /*
 ! tailwindcss v3.3.5 | MIT License | https://tailwindcss.com
@@ -1678,7 +1678,7 @@ body{
   counter-reset: recordIndex;
 }
 
-.td-counter::before {
+.td-counter::before{
   counter-increment: recordIndex;
   content: counter(recordIndex);
 }
@@ -1931,4 +1931,3 @@ body{
     padding-right: 0px;
   }
 }
-
