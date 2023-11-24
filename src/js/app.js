@@ -5,6 +5,7 @@ const productSelect = document.querySelector("#productSelect");
 const quantityInput = document.querySelector("#quantityInput");
 const recordGroup = document.querySelector("#recordGroup");
 const recordTotal = document.querySelector("#recordTotal");
+const printBtn = document.querySelector("#printBtn")
 
 //Data
 
@@ -80,7 +81,7 @@ const recordUI = (productName, price, quantity) => {
   const tr = document.createElement("tr");
 
   tr.className =
-    "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700";
+    "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 group ";
   tr.innerHTML = `
     <td class="px-6 py-4 text-left td-counter" ></td>
     <th
@@ -93,10 +94,10 @@ const recordUI = (productName, price, quantity) => {
     <td class="px-6 py-4 text-end">${price}</td>
     <td class="px-6 py-4 text-end">${quantity}</td>
 
-    <td class="px-6 py-4 text-end relative">
+    <td class="px-2 py-4 text-end relative">
       <span class="record-cost">${cost}</span>
-      <button class=" bg-blue-200 rounded-md p-1 absolute left-[90%]">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 stroke-1 stroke-blue-900">
+      <button class="record-del bg-gray-200 rounded-md  translate-x-4 group-hover:translate-x-2 opacity-0 group-hover:opacity-100 duration-200 p-1 fixed active:scale-75 pointer-events-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 stroke-1 stroke-red-800 pointer-events-none">
       <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
     </svg>
     
@@ -113,7 +114,10 @@ const calRecordTotal = () => {
   // const costs = app.querySelectorAll(".record-cost");
   // costs.forEach((el) => (total += parseFloat(el.innerText)));
 
-  const total = [...document.querySelectorAll(".record-cost")].reduce((pv,cv)=>pv + parseFloat(cv.innerText),0);
+  const total = [...document.querySelectorAll(".record-cost")].reduce(
+    (pv, cv) => pv + parseFloat(cv.innerText),
+    0
+  );
   recordTotal.innerText = total;
   return total;
 };
@@ -145,10 +149,35 @@ const recordFormHandler = (event) => {
   recordForm.reset();
 };
 
+const pressEnter = (event) => {
+    if(event.key == "Enter"){
+      recordFormHandler();
+    }
+}
+
+//6  => ပြန်ကြည့်ရန်
+// event deligation closet တနီးဆုံးparent ရှာ
+const recordGroupHandler = (event) => {
+  // console.log(event.target);
+  // const x = event.target.classListcontains("record-del");
+  //   console.log(x);
+  if (event.target.classList.contains("record-del")) {
+    console.log(event.target.closest("tr").remove());
+  }
+  calRecordTotal();
+};
+
+
+//7
+const printBtnHandler = () => {
+  print();
+}
+
 //Listener
 
 recordForm.addEventListener("submit", recordFormHandler);
-
+recordGroup.addEventListener("click", recordGroupHandler);
+printBtn.addEventListener("click",printBtnHandler)
 
 // =================================================================
 
