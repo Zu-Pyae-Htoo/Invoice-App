@@ -5,7 +5,7 @@ const productSelect = document.querySelector("#productSelect");
 const quantityInput = document.querySelector("#quantityInput");
 const recordGroup = document.querySelector("#recordGroup");
 const recordTotal = document.querySelector("#recordTotal");
-const printBtn = document.querySelector("#printBtn")
+const printBtn = document.querySelector("#printBtn");
 
 //Data
 
@@ -76,9 +76,10 @@ const productRender = (items) => {
 };
 
 //4
-const recordUI = (productName, price, quantity) => {
+const recordUI = (id, productName, price, quantity) => {
   const cost = price * quantity;
   const tr = document.createElement("tr");
+  tr.setAttribute("product-id", id);
 
   tr.className =
     "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 group relative ";
@@ -151,22 +152,42 @@ const recordFormHandler = (event) => {
   // console.log(productSelect.value);
   // console.log(currentProduct.name);
   // console.log(quantityInput.valueAsNumber);
-  recordGroup.append(
-    recordUI(
-      currentProduct.name,
-      currentProduct.price,
-      quantityInput.valueAsNumber
-    )
+  const isExistProduct = app.querySelector(
+    `[product-id='${currentProduct.id}']`
   );
-  calRecordTotal();
+
+  if (isExistProduct) {
+    const currentRow = event.target.closest("tr");
+    const currentRowQ = isExistProduct.querySelector(".record-q");
+    const currentRowCost = isExistProduct.querySelector(".record-cost");
+    const currentRowPrice = isExistProduct.querySelector(".record-price");
+
+    currentRowQ.innerText = parseInt(currentRowQ.innerText) + quantityInput.valueAsNumber;
+    currentRowCost.innerText =
+      currentRowPrice.innerText * currentRowQ.innerText;
+    calRecordTotal();
+
+      calRecordTotal();
+  } else {
+    recordGroup.append(
+      recordUI(
+        currentProduct.id,
+        currentProduct.name,
+        currentProduct.price,
+        quantityInput.valueAsNumber
+      )
+    );
+    calRecordTotal();
+  }
+
   recordForm.reset();
 };
 
 const pressEnter = (event) => {
-    if(event.key == "Enter"){
-      recordFormHandler();
-    }
-}
+  if (event.key == "Enter") {
+    recordFormHandler();
+  }
+};
 
 //6  => ပြန်ကြည့်ရန်
 // event deligation closet တနီးဆုံးparent ရှာ
@@ -177,7 +198,7 @@ const recordGroupHandler = (event) => {
   if (event.target.classList.contains("record-del")) {
     console.log(event.target.closest("tr").remove());
     calRecordTotal();
-  }else if(event.target.classList.contains("add-q")){
+  } else if (event.target.classList.contains("add-q")) {
     // console.log(event.target);
     const currentRow = event.target.closest("tr");
     const currentRowQ = currentRow.querySelector(".record-q");
@@ -185,35 +206,35 @@ const recordGroupHandler = (event) => {
     const currentRowPrice = currentRow.querySelector(".record-price");
 
     currentRowQ.innerText = parseInt(currentRowQ.innerText) + 1;
-    currentRowCost.innerText = currentRowPrice.innerText * currentRowQ.innerText;
+    currentRowCost.innerText =
+      currentRowPrice.innerText * currentRowQ.innerText;
     calRecordTotal();
-    
-  }else if(event.target.classList.contains("sub-q")){
+  } else if (event.target.classList.contains("sub-q")) {
     // console.log(event.target);
     const currentRow = event.target.closest("tr");
     const currentRowQ = currentRow.querySelector(".record-q");
     const currentRowCost = currentRow.querySelector(".record-cost");
     const currentRowPrice = currentRow.querySelector(".record-price");
 
-    currentRowQ.innerText = parseInt(currentRowQ.innerText) - 1;
-    currentRowCost.innerText = currentRowPrice.innerText * currentRowQ.innerText;
-    calRecordTotal();
-    
+    if (currentRowQ.innerText > 0) {
+      currentRowQ.innerText = parseInt(currentRowQ.innerText) - 1;
+      currentRowCost.innerText =
+        currentRowPrice.innerText * currentRowQ.innerText;
+      calRecordTotal();
+    }
   }
-  
 };
-
 
 //7
 const printBtnHandler = () => {
   print();
-}
+};
 
 //Listener
 
 recordForm.addEventListener("submit", recordFormHandler);
 recordGroup.addEventListener("click", recordGroupHandler);
-printBtn.addEventListener("click",printBtnHandler)
+printBtn.addEventListener("click", printBtnHandler);
 
 // =================================================================
 

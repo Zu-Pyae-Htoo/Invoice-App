@@ -6,8 +6,8 @@
     <title>Invoice App</title>
     <link rel="stylesheet" href="../dist/output.css" />
   </head>
-  <body class="p-3 md:p-0">
-    <main id="app" class="max-w-[700px] mx-auto min-h-screen flex flex-col">
+  <body class="md:p-0">
+    <main id="app" class="max-w-[700px] mx-auto min-h-screen flex flex-col px-5">
       <!-- header  -->
       <header class="mb-2 mt-3 print:hidden">
         <h1 class="text-3xl font-bold">MMS Solutions</h1>
@@ -112,7 +112,22 @@
           Print
         </button>
       </footer>
+      <div id="productDrawer" class="w-82 fixed h-screen bg-gray-200 right-0 p-2">
+        <div class=" flex justify-between  gap-3">
+          <div class="">
+            <h1 class="text-3xl font-bold">Your Product</h1>
+            <h4 class="text-lg text-gray-600 font-semibold">Manage Product</h4>
+          </div>
+          <button class=" bg-blue-200 px-3 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-blue-700">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            
+          </button>
+        </div>
+      </div>
     </main>
+    
     <script src="./js/app.js"></script>
     <!-- <script src="../node_modules/flowbite/dist/flowbite.min.css"></script> -->
   </body>
