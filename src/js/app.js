@@ -11,9 +11,10 @@ const closeDrawer = document.querySelector("#closeDrawer");
 const drawer = document.querySelector("#drawer");
 const productTemplate = document.querySelector("#productTemplate");
 const productGroup = document.querySelector("#productGroup");
-
-
-
+const newProductForm = document.querySelector("#newProductForm");
+const newProductName = document.querySelector("#newProductName");
+const newProductPrice = document.querySelector("#newProductPrice");
+const newProductBtn = document.querySelector("#newProductBtn");
 
 //Data
 
@@ -78,10 +79,9 @@ const products = [
 // ================
 
 const productRender = (items) => {
-  items.forEach(({ id, name,price }) => {
-    productSelect.append(new Option(name, id));
-    productGroup.append(templateUI(name,price))
-
+  items.forEach((item) => {
+    productSelect.append(new Option(item.name, item.id));
+    productGroup.append(templateUI(item));
   });
 };
 
@@ -146,13 +146,13 @@ const calRecordTotal = () => {
   return total;
 };
 
-const templateUI = (name,price) => {
+const templateUI = ({ name, price }) => {
   const product = productTemplate.content.cloneNode(true);
- 
+
   product.querySelector(".productName").innerText = name;
   product.querySelector(".productPrice").innerText = price;
   return product;
-}
+};
 
 //Inintial Render
 
@@ -180,12 +180,13 @@ const recordFormHandler = (event) => {
     const currentRowCost = isExistProduct.querySelector(".record-cost");
     const currentRowPrice = isExistProduct.querySelector(".record-price");
 
-    currentRowQ.innerText = parseInt(currentRowQ.innerText) + quantityInput.valueAsNumber;
+    currentRowQ.innerText =
+      parseInt(currentRowQ.innerText) + quantityInput.valueAsNumber;
     currentRowCost.innerText =
       currentRowPrice.innerText * currentRowQ.innerText;
     calRecordTotal();
 
-      calRecordTotal();
+    calRecordTotal();
   } else {
     recordGroup.append(
       recordUI(
@@ -251,17 +252,36 @@ const printBtnHandler = () => {
 const productDrawerHandler = () => {
   drawer.classList.toggle("translate-x-full");
   productDrawer.classList.add("duration-200");
-  console.log("click");
-}
+};
 
+const newProductFormHandler = (event) => {
+  event.preventDefault();
+  const formData = new FormData(newProductForm);
+
+  // console.log(formData.get("new_product_name"));
+  // console.log(formData.get("new_product_price"));
+
+  const newProduct = {
+    id: Date.now(),
+    name: formData.get("new_product_name"),
+    price: formData.get("new_product_price"),
+  };
+
+  productGroup.append(templateUI(newProduct));
+  productSelect.append(new Option(newProduct.name, newProduct.id));
+  products.push(newProduct);
+
+  newProductForm.reset();
+};
 
 //Listener
 
 recordForm.addEventListener("submit", recordFormHandler);
 recordGroup.addEventListener("click", recordGroupHandler);
 printBtn.addEventListener("click", printBtnHandler);
-productManageBtn.addEventListener("click",productDrawerHandler)
-closeDrawer.addEventListener("click",productDrawerHandler)
+productManageBtn.addEventListener("click", productDrawerHandler);
+closeDrawer.addEventListener("click", productDrawerHandler);
+newProductForm.addEventListener("submit", newProductFormHandler);
 
 // =================================================================
 
