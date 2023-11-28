@@ -6,6 +6,14 @@ const quantityInput = document.querySelector("#quantityInput");
 const recordGroup = document.querySelector("#recordGroup");
 const recordTotal = document.querySelector("#recordTotal");
 const printBtn = document.querySelector("#printBtn");
+const productManageBtn = document.querySelector("#productManageBtn");
+const closeDrawer = document.querySelector("#closeDrawer");
+const drawer = document.querySelector("#drawer");
+const productTemplate = document.querySelector("#productTemplate");
+const productGroup = document.querySelector("#productGroup");
+
+
+
 
 //Data
 
@@ -70,8 +78,10 @@ const products = [
 // ================
 
 const productRender = (items) => {
-  items.forEach(({ id, name }) => {
+  items.forEach(({ id, name,price }) => {
     productSelect.append(new Option(name, id));
+    productGroup.append(templateUI(name,price))
+
   });
 };
 
@@ -135,6 +145,14 @@ const calRecordTotal = () => {
   recordTotal.innerText = total;
   return total;
 };
+
+const templateUI = (name,price) => {
+  const product = productTemplate.content.cloneNode(true);
+ 
+  product.querySelector(".productName").innerText = name;
+  product.querySelector(".productPrice").innerText = price;
+  return product;
+}
 
 //Inintial Render
 
@@ -230,11 +248,20 @@ const printBtnHandler = () => {
   print();
 };
 
+const productDrawerHandler = () => {
+  drawer.classList.toggle("translate-x-full");
+  productDrawer.classList.add("duration-200");
+  console.log("click");
+}
+
+
 //Listener
 
 recordForm.addEventListener("submit", recordFormHandler);
 recordGroup.addEventListener("click", recordGroupHandler);
 printBtn.addEventListener("click", printBtnHandler);
+productManageBtn.addEventListener("click",productDrawerHandler)
+closeDrawer.addEventListener("click",productDrawerHandler)
 
 // =================================================================
 
